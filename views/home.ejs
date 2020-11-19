@@ -6,7 +6,10 @@
 
 <% posts.forEach(post =>{ %>
 <h1> <%= post.title %> </h1>
-<p class="truncate"> <%= post.content %> <p>
+
+<p class="truncate"> <%= post.content.substr(0,100) + "..." %>
+  <a href="/posts/<%= post.title %>" >Read more</a>
+<p>
 <% }) %>
 
 
