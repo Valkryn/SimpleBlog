@@ -49,10 +49,9 @@ app.get("/posts/:entry",function(req,res){
   posts.forEach(post => {
     const title = lode.kebabCase(post.title)
     if (urlParams === title){
-      console.log("match found")
+      res.render("post", {post:post})
     }
   })
-
 })
 
 
