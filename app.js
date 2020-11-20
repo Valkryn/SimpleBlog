@@ -21,12 +21,12 @@ const postSchema = {
 
 const Post = mongoose.model("Post",postSchema)
 
-// const newPost = new Post ({
-//   title:"Day 1",
-//   content:"this is a test run"
-// })
+const newPost = new Post ({
+  title:"Day 1",
+  content:"this is a test run"
+})
 
-// newPost.save()
+newPost.save()
 
 app.set('view engine', 'ejs');
 
@@ -81,7 +81,7 @@ app.post("/compose",function(req,res){
 // :entry is dynamic routing for ejs, accessed by params
 app.get("/posts/:entry",function(req,res){
   const urlParams = lode.kebabCase(req.params.entry)
-  
+
   Post.find({},function(err,posts){
     posts.forEach(post => {
       const title = lode.kebabCase(post.title)
