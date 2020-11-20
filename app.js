@@ -43,6 +43,8 @@ app.post("/compose",function(req,res){
   res.redirect("/")
 })
 
+
+// :entry is dynamic routing for ejs, accessed by params
 app.get("/posts/:entry",function(req,res){
   const urlParams = lode.kebabCase(req.params.entry)
 
