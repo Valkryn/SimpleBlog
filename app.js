@@ -94,9 +94,20 @@ app.get("/posts/:entry",function(req,res){
       }
     })
   })
-
 })
 
+
+app.post("/post/:entry/delete",function(req,res){
+const postIdToBeDeleted= req.body.deleteID
+  Post.deleteOne({ _id: postIdToBeDeleted},function(err){
+    if(err){
+      console.log(err)
+    }else {
+      console.log("success")
+    }
+  })
+  res.redirect("/")
+})
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");

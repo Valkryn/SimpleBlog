@@ -4,11 +4,10 @@
 <h1><%= post.title %> </h1>
 
 <p> <%= post.content%> </p>
-<p> <%= post._id %> </p>
 
-<form class="" action="" method="post">
-  <input type="hidden" name="" value="">
-  <button class="btn btn-primary" type="submit" name="button">Delete Post</button>
+<form class="" action="/post/:entry/delete" method="post">
+  <input type="hidden" name="deleteID" value="<%= post._id %>">
+  <button class="btn btn-primary" type="submit">Delete Post</button>
 </form>
 
 <%- include("partials/footer") -%>
