@@ -21,29 +21,33 @@ const postSchema = {
 
 const Post = mongoose.model("Post",postSchema)
 
-const newPost = new Post ({
-  title:"Day 1",
-  content:"this is a test run"
-})
-
-newPost.save()
+// const newPost = new Post ({
+//   title:"Day 1",
+//   content:"this is a test run"
+// })
+//
+// newPost.save()
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-let defaultposts = {
-  title: "Title of new post",
-  content: "Content of new post"
-}
+
 
 app.get("/",function(req,res){
+
+  const defaultposts = new Post ({
+    title: "Title of new post",
+    content: "Content of new post"
+  })
+
   Post.find({},function(err,dbPosts){
     if (dbPosts.length === 0){
+      defaultposts.save()
       res.render("home", {
         homeContent:homeStartingContent,
-        posts:defaultposts
+        posts:dbPosts
       })
     } else {
       res.render("home", {
