@@ -1,5 +1,4 @@
 //jshint esversion:6
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -21,19 +20,10 @@ const postSchema = {
 
 const Post = mongoose.model("Post",postSchema)
 
-// const newPost = new Post ({
-//   title:"Day 1",
-//   content:"this is a test run"
-// })
-//
-// newPost.save()
-
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-
-
 
 app.get("/",function(req,res){
 
@@ -45,14 +35,9 @@ app.get("/",function(req,res){
   Post.find({},function(err,dbPosts){
     if (dbPosts.length === 0){
       defaultposts.save()
-      res.render("home", {
-        homeContent:homeStartingContent,
-        posts:dbPosts
-      })
+      res.render("home", {homeContent:homeStartingContent,posts:dbPosts})
     } else {
-      res.render("home", {
-        homeContent: homeStartingContent,
-        posts:dbPosts})
+      res.render("home", {homeContent: homeStartingContent,posts:dbPosts})
     }
   })
 })
@@ -71,40 +56,25 @@ app.get("/compose", function(req,res){
 
 app.post("/compose",function(req,res){
   const post = req.body
-
   const newPost = new Post ({
     title:post.title,
     content:post.content
   })
   newPost.save()
-  // posts.push(post)
   res.redirect("/")
 })
-
-
 // :entry is dynamic routing for ejs, accessed by params
-app.get("/posts/:entry",function(req,res){
-  const urlParams = lode.kebabCase(req.params.entry)
-
-  Post.find({},function(err,posts){
-    posts.forEach(post => {
-      const title = lode.kebabCase(post.title)
-      if (urlParams === title){
-        res.render("post", {post:post})
-      }
-    })
+app.get("/posts/:postid",function(req,res){
+  const urlParams = req.params.postid
+  Post.findOne({_id:urlParams},function(err,posts){
+    res.render("post", {post:posts})
   })
 })
-
 
 app.post("/post/:entry/delete",function(req,res){
 const postIdToBeDeleted= req.body.deleteID
   Post.deleteOne({ _id: postIdToBeDeleted},function(err){
-    if(err){
-      console.log(err)
-    }else {
-      console.log("success")
-    }
+    err ? console.log(err):console.log("success")
   })
   res.redirect("/")
 })
