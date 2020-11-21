@@ -5,9 +5,10 @@
 
 <p> <%= post.content%> </p>
 
-<form class="" action="/post/:entry/delete" method="post">
+<form class="" action="/post/:postid/delete" method="post">
   <input type="hidden" name="deleteID" value="<%= post._id %>">
   <button class="btn btn-primary" type="submit">Delete Post</button>
 </form>
+
 
 <%- include("partials/footer") -%>

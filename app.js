@@ -71,7 +71,7 @@ app.get("/posts/:postid",function(req,res){
   })
 })
 
-app.post("/post/:entry/delete",function(req,res){
+app.post("/post/:postid/delete",function(req,res){
 const postIdToBeDeleted= req.body.deleteID
   Post.deleteOne({ _id: postIdToBeDeleted},function(err){
     err ? console.log(err):console.log("success")
